@@ -31,6 +31,10 @@ racket compiler.rkt -v test-programs/sum1.irv
 
 (Also pass in -m for Mac)
 
+add.irv
+double.irv
+sub.irv
+
 [ Question 2 ] 
 
 For this task, you will write three new .ifa programs. Your programs
