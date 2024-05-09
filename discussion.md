@@ -53,6 +53,118 @@ carefully the relevance of each of the intermediate representations.
 For this question, please add your `.ifa` programs either (a) here or
 (b) to the repo and write where they are in this file.
 
+First.ifa:
+Input:(* 3 (+ 2 5))
+Output:
+Input source tree in IfArith:
+'(* 3 (+ 2 5))
+ifarith-tiny:
+'(* 3 (+ 2 5))
+'(* 3 (+ 2 5))
+3
+'(+ 2 5)
+2
+5
+anf:
+'(let ((x1254 3))
+   (let ((x1255 2))
+     (let ((x1256 5))
+       (let ((x1257 (+ x1255 x1256))) (let ((x1258 (* x1254 x1257))) x1258)))))
+ir-virtual:
+'(((label lab1259) (mov-lit x1254 3))
+  ((label lab1260) (mov-lit x1255 2))
+  ((label lab1261) (mov-lit x1256 5))
+  ((label lab1262) (mov-reg x1257 x1255))
+  (add x1257 x1256)
+  ((label lab1263) (mov-reg x1258 x1254))
+  (imul x1258 x1257)
+  (return x1258))
+x86:
+section .data
+	int_format db "%ld",10,0
+
+
+	global _main
+	extern _printf
+section .text
+
+
+_start:	call _main
+	mov rax, 60
+	xor rdi, rdi
+	syscall
+
+
+_main:	push rbp
+	mov rbp, rsp
+	sub rsp, 80
+	mov esi, 3
+	mov [rbp-40], esi
+	mov esi, 2
+	mov [rbp-32], esi
+	mov esi, 5
+	mov [rbp-24], esi
+	mov esi, [rbp-32]
+	mov [rbp-16], esi
+	mov edi, [rbp-24]
+	mov eax, [rbp-16]
+	add eax, edi
+	mov [rbp-16], eax
+	mov esi, [rbp-40]
+	mov [rbp-8], esi
+	mov edi, [rbp-16]
+	mov eax, [rbp-8]
+	imul eax, edi
+	mov [rbp-8], eax
+	mov rax, [rbp-8]
+	jmp finish_up
+finish_up:	add rsp, 80
+	leave 
+	ret 
+
+Second.ifa:
+Input:16
+Output:
+Input source tree in IfArith:
+16
+ifarith-tiny:
+16
+16
+anf:
+'(let ((x1254 16)) x1254)
+ir-virtual:
+'(((label lab1255) (mov-lit x1254 16)) (return x1254))
+x86:
+section .data
+	int_format db "%ld",10,0
+
+
+	global _main
+	extern _printf
+section .text
+
+
+_start:	call _main
+	mov rax, 60
+	xor rdi, rdi
+	syscall
+
+
+_main:	push rbp
+	mov rbp, rsp
+	sub rsp, 16
+	mov esi, 16
+	mov [rbp-8], esi
+	mov rax, [rbp-8]
+	jmp finish_up
+finish_up:	add rsp, 16
+	leave 
+	ret 
+
+Thirt.ifa:
+Input:((let* ([a 3] [b 4]))(* a b))
+Output:
+
 [ Question 3 ] 
 
 Describe each of the passes of the compiler in a slight degree of
