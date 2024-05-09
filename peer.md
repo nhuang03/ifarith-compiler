@@ -3,8 +3,7 @@ Subject: CIS352 P5 Peer Assessment
 
 Your Name: Nengneng Huang
 Your Groupmates (up to 2): 
-________________
-________________
+
 
 We plan to give most students roughly similar grades, unless a
 groupmate did not attend or did significantly less work. Choose one of
